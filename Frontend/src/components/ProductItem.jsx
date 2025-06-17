@@ -16,3 +16,5 @@ export const ProductItem = ({id,image,name,price}) => {
     </Link>
   )
 }
+
+export default ProductItem
