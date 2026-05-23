@@ -6,6 +6,7 @@ import connectCloudinary from './config/cloudinary.js';
 import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import dns from 'dns';
+import cartRouter from './routes/cartRoute.js';
 
 // Change DNS
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -23,6 +24,7 @@ app.use(cors())
 //API Endpoints
 app.use('/api/user',userRouter)
 app.use('/api/product',productRouter)
+app.use('/api/cart',cartRouter)
 
 app.get('/',(req,res)=>{
     res.send('API is Working')

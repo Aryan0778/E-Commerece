@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../App'
 import { toast } from 'react-toastify'
 
-const List = () => {
+const List = ({token}) => {
 
     const[list,setList] = useState([])
 
@@ -20,6 +20,21 @@ const List = () => {
         } catch (error) {
             console.log(error);
             toast.error(error.message)    
+        }
+    }
+
+    const removeProduct = async(id) =>{
+        try {
+            const response = await axios.post(backendUrl+'/api/product/remove',{id},{headers:{token }})
+            if(response.data.success){
+                toast.success(response.data.message)
+                await fetchList();
+            }else{
+                toast.error(response.data.message)
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message)   
         }
     }
 
@@ -42,12 +57,12 @@ const List = () => {
             {/*-----Product List-----*/}
             {
                 list.map((item,index)=>(
-                    <div key={index}>
-                        <img src={item.image[0]} alt="" />
+                    <div  className='grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 py-1 px-2 border text-sm' key={index}>
+                        <img className='w-20' src={item.image[0]} alt="" />
                         <p>{item.name}</p>
                         <p>{item.category}</p>
                         <p>{currency}{item.price}</p>
-                        <p>X</p>
+                        <p className='text-gray-800 text-lg cursor-pointer transition-colors duration-300 ease-in-out hover:text-pink-500 hover:underline' onClick={()=>removeProduct(item._id)}>X</p>
                     </div>
                 ))
                     
