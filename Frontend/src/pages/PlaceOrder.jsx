@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify"; 
-import {currency} from '../../../admin/src/App'
+const currency = '$';
 
 
 const PlaceOrder = () => {
